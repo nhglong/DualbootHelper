@@ -46,7 +46,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
         sharedPreferences.registerOnSharedPreferenceChangeListener((prefs, key) -> {
             if (isPreferencesLoaded) { 
                 Log.d("PreferencesFragment", "Preference changed: " + key);
-                if ("slot_a_actions".equals(key)  "slot_b_actions".equals(key)  "misc_actions".equals(key)) {
+                if ("slot_a_actions".equals(key) || "slot_b_actions".equals(key) || "misc_actions".equals(key)) {
                     String action = prefs.getString(key, "");
                     Log.d("PreferencesFragment", "Action selected: " + action); 
                     if (!action.isEmpty()) {
