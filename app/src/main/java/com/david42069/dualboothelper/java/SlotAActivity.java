@@ -18,7 +18,7 @@ public class SlotAActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slot_a);  // Create a layout file for this
         // Initialize any UI components or actions specific to Slot A
-        ToolbarLayout toolbarLayout = findViewById(R.id.toolbar_layout);
+        ToolbarLayout toolbarLayout = findViewById(R.id.slota_act);
         toolbarLayout.setNavigationButtonAsBack();
     }
 }
