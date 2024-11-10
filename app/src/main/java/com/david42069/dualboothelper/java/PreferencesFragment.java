@@ -54,27 +54,27 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
         isPreferencesLoaded = false;
     }
 
-private void showConfirmationDialog(String action) {
-    Activity activity = requireActivity();
-    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-
-    // Use the action as the title, with "?" appended to it
-    String title = action + "?";
-    String message = getString(R.string.dialog_confirm);
-    String positiveButton = getString(R.string.dialog_yes);
-    String negativeButton = getString(R.string.dialog_no);
-
-    builder.setTitle(title)
-            .setMessage(message)
-            .setPositiveButton(positiveButton, (dialog, which) -> {
-                showLoadingDialog();
-                executeAction(action);  // Pass the action to execute based on selection
-            })
-            .setNegativeButton(negativeButton, null);
-
-    AlertDialog alert = builder.create();
-    alert.show();
-}
+    private void showConfirmationDialog(String action) {
+        Activity activity = requireActivity();
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+    
+        // Use the action as the title, with "?" appended to it
+        String title = action + "?";
+        String message = getString(R.string.dialog_confirm);
+        String positiveButton = getString(R.string.dialog_yes);
+        String negativeButton = getString(R.string.dialog_no);
+    
+        builder.setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(positiveButton, (dialog, which) -> {
+                    showLoadingDialog();
+                    executeAction(action);  // Pass the action to execute based on selection
+                })
+                .setNegativeButton(negativeButton, null);
+    
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 
     private void showLoadingDialog() {
         Activity activity = requireActivity();
