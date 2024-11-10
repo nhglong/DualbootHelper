@@ -74,11 +74,6 @@ public class MainActivity extends AppCompatActivity {
         Shell.getShell(shell -> {});
         cp(R.raw.parted, "parted");
 		cp(R.raw.jq, "jq");
-        // Inflate my fragment
-        LinearLayout qactContainer = findViewById(R.id.qact_container);
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View preferenceView = inflater.inflate(R.xml.fragment, null); // Assuming fragment.xml is your preference screen layout
-        qactContainer.addView(preferenceView);
         ToolbarLayout toolbarLayout = findViewById(R.id.home);
         updateStatusCardView();
         updateSlotCardView(R.id.slota_txt, SLOT_A_FILE_PATH);
