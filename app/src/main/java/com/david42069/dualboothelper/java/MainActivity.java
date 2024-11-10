@@ -83,10 +83,13 @@ public class MainActivity extends AppCompatActivity {
         updateSlotCardView(R.id.slota_txt, SLOT_A_FILE_PATH);
         updateSlotCardView(R.id.slotb_txt, SLOT_B_FILE_PATH);
 
-        // Set up the dropdown listeners
-        setupDropDownPreference(slot_a_actions, "slot_a_values");
-        setupDropDownPreference(slot_b_actions, "slot_b_values");
-        setupDropDownPreference(misc_actions, "misc_values");
+        // Dynamically add the PreferencesFragment
+        if (savedInstanceState == null) {
+            PreferencesFragment preferencesFragment = new PreferencesFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.pref_container, preferencesFragment);
+            transaction.commit();
+        }
     }
 
     private void cp(int resourceId, String fileName) {
@@ -142,53 +145,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             Log.e("MainActivity", "Error reading " + filePath, e);
         }
-    }
-
-    private void setupDropDownPreference(int dropDownId, String valueArrayKey) {
-        DropDownPreference dropDownId = findPreference("dropDownId");
-        dropDownId.seslsetOnPreferenceChangeListener((preference, newValue) -> {
-            showConfirmationDialog(newValue.toString());
-            return true;
-        });
-        // DropDownPreference dropDown = findViewById(dropDownId);
-        // dropDown.setOnPreferenceChangeListener((preference, newValue) -> {
-        //     showConfirmationDialog(newValue.toString());
-        //     return true;
-        // });
-    }
-
-    private void showConfirmationDialog(String scriptFile) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        String title = getString(R.string.confirmation_title);
-        String message = getString(R.string.dialog_confirm);
-        String positiveButton = getString(R.string.dialog_yes);
-        String negativeButton = getString(R.string.dialog_no);
-
-        builder.setTitle(title)
-            .setMessage(message)
-            .setPositiveButton(positiveButton, (dialog, which) -> {
-                showLoadingDialog();
-                executeShellCommand(scriptFile);
-            })
-            .setNegativeButton(negativeButton, null);
-
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    private void showLoadingDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(false);
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View dialogView = inflater.inflate(R.layout.loading_dialog, null);
-        builder.setView(dialogView);
-        AlertDialog dialog = builder.create();
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
-    }
-    
-    private void executeShellCommand(String scriptFile) {
-        Shell.cmd(getResources().openRawResource(getResources().getIdentifier(scriptFile.replace("R.raw.", ""), "raw", getPackageName()))).exec();
     }
     
     @Override
