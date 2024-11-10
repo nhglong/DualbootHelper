@@ -65,7 +65,7 @@
                             android:id="@+id/status"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:TitleText="@string/slota_os"
+                            app:TitleText="@string/status"
                             app:SummaryText="@{statusstring}" />
     
                         <dev.oneuiproject.oneui.widget.ui.widget.CardView

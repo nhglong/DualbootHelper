@@ -24,14 +24,15 @@ import java.util.Map;
 
 public class PreferencesFragment extends PreferenceFragmentCompat {
 
-    private static final String PREF_FIRST_RUN = "pref_first_run";
+    private boolean isPreferencesLoaded = false;
     private final Map<String, Integer> actionTitles = new HashMap<>();
+    private static final String PREF_FIRST_RUN = "pref_first_run";
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.fragment, rootKey);
 
-        // Initialize the map with action-title mappings
+        // Initialize the action-to-title mapping
         actionTitles.put("switcha", R.string.reboot_a);
         actionTitles.put("switchar", R.string.recovery_a);
         actionTitles.put("switchb", R.string.reboot_b);
@@ -43,28 +44,38 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
         boolean isFirstRun = sharedPreferences.getBoolean(PREF_FIRST_RUN, true);
 
         if (isFirstRun) {
-            // Set first-run flag to false, so future launches are not treated as first runs
+            // Mark the first run as complete
             sharedPreferences.edit().putBoolean(PREF_FIRST_RUN, false).apply();
+            isPreferencesLoaded = false;  // Avoid showing prompts on the first run
+        } else {
+            isPreferencesLoaded = true;  // Set flag to true if not the first run
         }
 
         // Register preference change listener
         sharedPreferences.registerOnSharedPreferenceChangeListener((prefs, key) -> {
-            String action = prefs.getString(key, "");
-            if (!action.isEmpty() && (isFirstRun && !action.equals("default"))) {
-                // Only show the confirmation dialog if the selected action differs from default value
-                showConfirmationDialog(action);
+            if (isPreferencesLoaded) {  // Only proceed if not in initial setup
+                String action = prefs.getString(key, "");
+                if (!action.isEmpty()) {
+                    showConfirmationDialog(action);
+                }
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        isPreferencesLoaded = true;  // Ensure this is set when returning to the fragment
     }
 
     private void showConfirmationDialog(String action) {
         Activity activity = requireActivity();
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
-        // Retrieve user-friendly title from the map
+        // Get a user-friendly title for the action
         String title = actionTitles.containsKey(action) ? 
                        getString(actionTitles.get(action)) + "?" : 
-                       action + "?";  // Fallback to action if not found in map
+                       action + "?";
 
         String message = getString(R.string.dialog_confirm);
         String positiveButton = getString(R.string.dialog_yes);
@@ -93,11 +104,10 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
     }
-    
+
     private void executeAction(String action) {
         String scriptFile = "";
 
-        // Assign corresponding script based on action
         switch (action) {
             case "switcha":
                 scriptFile = "R.raw.switcha";
@@ -114,13 +124,11 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
             case "download":
                 scriptFile = "R.raw.download";
                 break;
-            case "shuwdown":
+            case "shutdown":
                 scriptFile = "R.raw.shutdown";
                 break;
         }
 
-        // Execute the shell command based on the selected action
         Shell.cmd(getResources().openRawResource(getResources().getIdentifier(scriptFile.replace("R.raw.", ""), "raw", getActivity().getPackageName()))).exec();
     }
-
 }
