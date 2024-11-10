@@ -6,6 +6,7 @@ on:
       - main
       - simple-design
       - libsu-simple-design
+      - libsu-pagestyle
 
   pull_request:
     branches: [ "main" ]
