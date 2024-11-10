@@ -121,10 +121,12 @@ public class MainActivity extends AppCompatActivity {
                 statusText.append(line).append("\n");
             }
 
-            CardView statusCardView = findViewById(R.id.status);
-            statusCardView.setSummaryText(statusText.toString().trim());
             String textToDisplay = statusText.toString().trim().isEmpty() ? 
-                getString(R.string.sudo_access) : statusText.toString();
+                                   getString(R.string.sudo_access) : statusText.toString();
+
+            CardView statusCardView = findViewById(R.id.status);
+            statusCardView.setSummaryText(textToDisplay);
+
         } catch (IOException e) {
             Log.e("MainActivity", "Error reading status.txt", e);
         }
@@ -138,10 +140,12 @@ public class MainActivity extends AppCompatActivity {
                 slotText.append(line).append("\n");
             }
 
-            CardView slotCardView = findViewById(cardViewId);
-            slotCardView.setSummaryText(slotText.toString().trim());
             String textToDisplay = slotText.toString().trim().isEmpty() ? 
-                getString(R.string.unavailable) : slotText.toString();
+                                   getString(R.string.unavailable) : slotText.toString();
+    
+            CardView slotCardView = findViewById(cardViewId);
+            slotCardView.setSummaryText(textToDisplay);
+
         } catch (IOException e) {
             Log.e("MainActivity", "Error reading " + filePath, e);
         }
