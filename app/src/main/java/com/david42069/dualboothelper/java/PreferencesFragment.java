@@ -23,13 +23,24 @@ import com.topjohnwu.superuser.Shell;
 public class PreferencesFragment extends PreferenceFragmentCompat {
 
     private boolean isPreferencesLoaded = false;
+    private static final String PREF_FIRST_RUN = "pref_first_run";
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        setPreferencesFromResource(R.xml.fragment, rootKey); // Link to your preferences XML file
+        setPreferencesFromResource(R.xml.fragment, rootKey);
 
-        // Initialize the flag when preferences are loaded
-        isPreferencesLoaded = true;
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
+
+        // Check if it's the first run after clearing data
+        boolean isFirstRun = sharedPreferences.getBoolean(PREF_FIRST_RUN, true);
+
+        if (isFirstRun) {
+            // Set first-run flag to false, so next launches are not treated as first runs
+            sharedPreferences.edit().putBoolean(PREF_FIRST_RUN, false).apply();
+            Log.d("PreferencesFragment", "First run detected. Skipping dialogs.");
+        } else {
+            isPreferencesLoaded = true;  // Enable listener if not the first run
+        }
 
         // Set up actions based on preference changes
         PreferenceManager.getDefaultSharedPreferences(requireContext())
@@ -57,13 +68,13 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
     private void showConfirmationDialog(String action) {
         Activity activity = requireActivity();
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-    
+
         // Use the action as the title, with "?" appended to it
         String title = action + "?";
         String message = getString(R.string.dialog_confirm);
         String positiveButton = getString(R.string.dialog_yes);
         String negativeButton = getString(R.string.dialog_no);
-    
+
         builder.setTitle(title)
                 .setMessage(message)
                 .setPositiveButton(positiveButton, (dialog, which) -> {
@@ -71,7 +82,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
                     executeAction(action);  // Pass the action to execute based on selection
                 })
                 .setNegativeButton(negativeButton, null);
-    
+
         AlertDialog alert = builder.create();
         alert.show();
     }
