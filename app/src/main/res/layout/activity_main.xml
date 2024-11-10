@@ -95,10 +95,19 @@
                 android:layout_height="wrap_content"
                 android:text="@string/qact" />
             
-            <FrameLayout
-                android:id="@+id/pref_container"
+            <dev.oneuiproject.oneui.widget.RoundLinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content"
+                android:background="@color/oui_background_color"
+                android:orientation="vertical"
+                android:id="@+id/qact_container">
+
+                <FrameLayout
+                    android:id="@+id/pref_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 
         </LinearLayout>
 

@@ -34,14 +34,18 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
         PreferenceManager.getDefaultSharedPreferences(requireContext())
                 .registerOnSharedPreferenceChangeListener((sharedPreferences, key) -> {
                     if (isPreferencesLoaded) {  // Check flag to avoid initial triggering
+                        Log.d("PreferencesFragment", "Preference changed: " + key);  // Log the key
                         if ("slot_a_actions".equals(key) || "slot_b_actions".equals(key) || "misc_actions".equals(key)) {
                             String action = sharedPreferences.getString(key, "");
-                            showConfirmationDialog(action);
+                            Log.d("PreferencesFragment", "Action selected: " + action);  // Log the selected action
+                            if (!action.isEmpty()) {  // Check if action is valid
+                                showConfirmationDialog(action);
+                            }
                         }
                     }
                 });
     }
-
+    
     // Ensure that the flag is reset when the fragment is detached
     @Override
     public void onDetach() {
