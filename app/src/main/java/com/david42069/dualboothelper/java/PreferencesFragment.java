@@ -17,59 +17,55 @@ import android.view.View;
 import android.content.Context;
 import android.util.Log;
 import com.topjohnwu.superuser.Shell;
+import java.util.HashMap;
+import java.util.Map;
 
 
 
 public class PreferencesFragment extends PreferenceFragmentCompat {
 
-    private boolean isPreferencesLoaded = false;
     private static final String PREF_FIRST_RUN = "pref_first_run";
+    private final Map<String, Integer> actionTitles = new HashMap<>();
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.fragment, rootKey);
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
+        // Initialize the map with action-title mappings
+        actionTitles.put("switcha", R.string.reboot_a);
+        actionTitles.put("switchar", R.string.recovery_a);
+        actionTitles.put("switchb", R.string.reboot_b);
+        actionTitles.put("switchbr", R.string.recovery_b);
+        actionTitles.put("download", R.string.dl_mode);
+        actionTitles.put("shutdown", R.string.poweroff);
 
-        // Check if it's the first run after clearing data
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         boolean isFirstRun = sharedPreferences.getBoolean(PREF_FIRST_RUN, true);
 
         if (isFirstRun) {
-            // Set first-run flag to false, so next launches are not treated as first runs
+            // Set first-run flag to false, so future launches are not treated as first runs
             sharedPreferences.edit().putBoolean(PREF_FIRST_RUN, false).apply();
-            Log.d("PreferencesFragment", "First run detected. Skipping dialogs.");
-        } else {
-            isPreferencesLoaded = true;  // Enable listener if not the first run
         }
 
-        // Set up actions based on preference changes
+        // Register preference change listener
         sharedPreferences.registerOnSharedPreferenceChangeListener((prefs, key) -> {
-            if (isPreferencesLoaded) { 
-                Log.d("PreferencesFragment", "Preference changed: " + key);
-                if ("slot_a_actions".equals(key) || "slot_b_actions".equals(key) || "misc_actions".equals(key)) {
-                    String action = prefs.getString(key, "");
-                    Log.d("PreferencesFragment", "Action selected: " + action); 
-                    if (!action.isEmpty()) {
-                        showConfirmationDialog(action);
-                    }
-                }
+            String action = prefs.getString(key, "");
+            if (!action.isEmpty() && (isFirstRun && !action.equals("default"))) {
+                // Only show the confirmation dialog if the selected action differs from default value
+                showConfirmationDialog(action);
             }
         });
-    }
-
-    // Ensure that the flag is reset when the fragment is detached
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        isPreferencesLoaded = false;
     }
 
     private void showConfirmationDialog(String action) {
         Activity activity = requireActivity();
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
-        // Use the action as the title, with "?" appended to it
-        String title = action + "?";
+        // Retrieve user-friendly title from the map
+        String title = actionTitles.containsKey(action) ? 
+                       getString(actionTitles.get(action)) + "?" : 
+                       action + "?";  // Fallback to action if not found in map
+
         String message = getString(R.string.dialog_confirm);
         String positiveButton = getString(R.string.dialog_yes);
         String negativeButton = getString(R.string.dialog_no);
@@ -78,7 +74,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
                 .setMessage(message)
                 .setPositiveButton(positiveButton, (dialog, which) -> {
                     showLoadingDialog();
-                    executeAction(action);  // Pass the action to execute based on selection
+                    executeAction(action);
                 })
                 .setNegativeButton(negativeButton, null);
 
