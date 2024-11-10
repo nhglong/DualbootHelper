@@ -77,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
         updateStatusCardView();
         updateSlotCardView(R.id.slota_txt, SLOT_A_FILE_PATH);
         updateSlotCardView(R.id.slotb_txt, SLOT_B_FILE_PATH);
+        slotb.setText(slotbstring);
+    }
 
         // Dynamically add the PreferencesFragment
         if (savedInstanceState == null) {
@@ -122,6 +124,8 @@ public class MainActivity extends AppCompatActivity {
 
             CardView statusCardView = findViewById(R.id.status);
             statusCardView.setSummaryText(statusText.toString().trim());
+            String textToDisplay = statusText.toString().trim().isEmpty() ? 
+                getString(R.string.sudo_access) : statusText.toString();
         } catch (IOException e) {
             Log.e("MainActivity", "Error reading status.txt", e);
         }
@@ -137,6 +141,8 @@ public class MainActivity extends AppCompatActivity {
 
             CardView slotCardView = findViewById(cardViewId);
             slotCardView.setSummaryText(slotText.toString().trim());
+            String textToDisplay = slotText.toString().trim().isEmpty() ? 
+                getString(R.string.unavailable) : slotText.toString();
         } catch (IOException e) {
             Log.e("MainActivity", "Error reading " + filePath, e);
         }
