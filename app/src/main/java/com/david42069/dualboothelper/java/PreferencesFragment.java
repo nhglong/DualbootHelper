@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.content.Context;
+import android.util.Log;
 import com.topjohnwu.superuser.Shell;
 
 
@@ -45,7 +46,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
                     }
                 });
     }
-    
+
     // Ensure that the flag is reset when the fragment is detached
     @Override
     public void onDetach() {
