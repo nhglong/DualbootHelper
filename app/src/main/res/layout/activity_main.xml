@@ -65,7 +65,7 @@
                             android:id="@+id/status"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:TitleText="@string/slota_os"
+                            app:TitleText="@string/dbinf"
                             app:SummaryText="@{statusstring}" />
     
                         <dev.oneuiproject.oneui.widget.ui.widget.CardView
@@ -103,167 +103,32 @@
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="12dp">
 
-                <GridLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:columnCount="2"
-                    android:rowCount="3"
-                    android:padding="0dp"
-                    android:alignmentMode="alignMargins"
-                    android:rowOrderPreserved="false"
-                    android:layout_gravity="center">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <dev.oneuiproject.oneui.widget.ui.widget.CardView
+                        android:id="@+id/slot_a_actions"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:layout_margin="8dp">
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:TitleText="@string/slota_qact"
+                        app:SummaryText="@string/slota_placeholder" />
 
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/ic_oui_restart"/>
-
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/reboot_a"
-                            style="?attr/buttonStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="8dp"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="@string/reboot_a" />
-                        
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <dev.oneuiproject.oneui.widget.ui.widget.CardView
+                        android:id="@+id/slot_b_actions"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:layout_margin="8dp">
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:TitleText="@string/slotb_qact"
+                        app:SummaryText="@string/slotb_placeholder" />
 
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/ic_oui_restart"/>
-
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/reboot_b"
-                            style="?attr/buttonStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="8dp"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="@string/reboot_b" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <dev.oneuiproject.oneui.widget.ui.widget.CardView
+                        android:id="@+id/misc_actions"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:layout_margin="8dp">
-
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/ic_oui_lightning"/>
-
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/rec_a"
-                            style="?attr/buttonStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="8dp"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="@string/recovery_a" />
-                        
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:layout_margin="8dp">
-
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/ic_oui_lightning"/>
-
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/rec_b"
-                            style="?attr/buttonStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="8dp"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="@string/recovery_b" />
-                        
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:layout_margin="8dp">
-
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/ic_oui_save"/>
-
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/bootloader"
-                            style="?attr/buttonStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="8dp"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="@string/dl_mode" />
-                        
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:layout_margin="8dp">
-
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/ic_oui_power"/>
-
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/poweroff"
-                            style="?attr/buttonStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="8dp"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="@string/poweroff" />
-
-                    </LinearLayout>
-
-                </GridLayout>
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:TitleText="@string/misc_qact"
+                        app:SummaryText="@string/misc_placeholder" />
 
             </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 
