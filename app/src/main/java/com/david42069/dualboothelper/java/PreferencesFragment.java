@@ -36,7 +36,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
     }
 
     private void showConfirmationDialog(String action) {
-        requireActivity()
+        Activity activity = requireActivity();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String title = getString(R.string.dialog_confirm_title);
         String message = getString(R.string.dialog_confirm);
