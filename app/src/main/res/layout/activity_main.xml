@@ -113,11 +113,13 @@
                         android:entries="@array/slota_entries"
                         android:entryValues="@array/slot_a_values"
                         android:defaultValue="@string/slota_placeholder"
+                        android:id="slot_a_actions"
                         app:useSimpleSummaryProvider="true" />
 
                     <!-- Slot B Actions Dropdown -->
                     <DropDownPreference
                         android:key="slot_b_actions"
+                        android:id="slot_b_actions"
                         android:title="@string/slotb_qact"
                         android:entries="@array/slotb_entries"
                         android:entryValues="@array/slot_b_values"
@@ -127,12 +129,13 @@
                     <!-- Misc Actions Dropdown -->
                     <DropDownPreference
                         android:key="misc_actions"
+                        android:id="misc_actions"
                         android:title="@string/misc_qact"
                         android:entries="@array/misc_entries"
                         android:entryValues="@array/misc_values"
                         android:defaultValue="@string/misc_placeholder"
                         app:useSimpleSummaryProvider="true" />
-                        
+
                 </PreferenceScreen>
 
             </dev.oneuiproject.oneui.widget.RoundLinearLayout>
