@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateStatusCardView() {
-        executeShellCommand(R.raw.updatedata);
+        executeShellCommand("R.raw.updatedata");
         File statusFile = new File(STATUS_FILE_PATH);
         String textToDisplay;
     
