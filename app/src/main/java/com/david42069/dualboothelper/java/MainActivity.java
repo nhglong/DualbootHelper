@@ -57,18 +57,36 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Shell.getShell(shell -> {});
         ToolbarLayout toolbarLayout = findViewById(R.id.home);
+
+        // Initialize the status and slot views
         updateStatusCardView();
         updateSlotCardView(R.id.slota_txt, SLOT_A_FILE_PATH);
         updateSlotCardView(R.id.slotb_txt, SLOT_B_FILE_PATH);
 
-        setupButtonWithConfirmation(R.id.reboot_a, R.string.reboot_a, "R.raw.switcha");
-        setupButtonWithConfirmation(R.id.reboot_b, R.string.reboot_b, "R.raw.switchb");
-        setupButtonWithConfirmation(R.id.rec_a, R.string.recovery_a, "R.raw.switchar");
-        setupButtonWithConfirmation(R.id.rec_b, R.string.recovery_b, "R.raw.switchbr");
-        setupButtonWithConfirmation(R.id.bootloader, R.string.dl_mode, "R.raw.download");
-        setupButtonWithConfirmation(R.id.poweroff, R.string.poweroff, "R.raw.shutdown");
+        // Set up new click listeners for CardView actions
+        setupCardViewListeners();
     }
-    
+
+    private void setupCardViewListeners() {
+        // Slot A Actions
+        findViewById(R.id.slot_a_actions).setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SlotAActivity.class);
+            startActivity(intent);
+        });
+
+        // Slot B Actions
+        findViewById(R.id.slot_b_actions).setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SlotBActivity.class);
+            startActivity(intent);
+        });
+
+        // Miscellaneous Actions
+        findViewById(R.id.misc_actions).setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, MiscActionsActivity.class);
+            startActivity(intent);
+        });
+    }
+
     private void updateStatusCardView() {
         try (BufferedReader reader = new BufferedReader(new FileReader(new File(STATUS_FILE_PATH)))) {
             StringBuilder statusText = new StringBuilder();
@@ -110,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MainActivity", "Error reading " + filePath, e);
         }
     }
+}
 
     private void setupButtonWithConfirmation(int buttonId, int promptResId, String scriptFile) {
         Button button = findViewById(buttonId);
