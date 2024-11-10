@@ -99,9 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/oui_background_color"
-                android:orientation="vertical"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="12dp">
+                android:orientation="vertical">
 
                     <dev.oneuiproject.oneui.widget.ui.widget.CardView
                         android:id="@+id/slot_a_actions"
@@ -119,7 +117,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         app:TitleText="@string/slotb_qact"
-                        app:SummaryText="@string/slotb_placeholder" />
+                        app:SummaryText="@string/slotb_placeholder"
+                        app:isDividerViewVisible="true" />
 
                     <dev.oneuiproject.oneui.widget.ui.widget.CardView
                         android:id="@+id/misc_actions"
@@ -128,7 +127,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         app:TitleText="@string/misc_qact"
-                        app:SummaryText="@string/misc_placeholder" />
+                        app:SummaryText="@string/misc_placeholder"
+                        app:isDividerViewVisible="true" />
 
             </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 

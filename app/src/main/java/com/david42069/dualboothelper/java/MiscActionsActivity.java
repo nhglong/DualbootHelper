@@ -16,7 +16,7 @@ public class MiscActionsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_slot_a);  // Create a layout file for this
+        setContentView(R.layout.activity_slot_misc);  // Create a layout file for this
         // Initialize any UI components or actions specific to Slot A
         ToolbarLayout toolbarLayout = findViewById(R.id.misc_act);
         toolbarLayout.setNavigationButtonAsBack();
