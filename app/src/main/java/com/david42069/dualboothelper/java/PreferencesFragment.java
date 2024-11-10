@@ -1,6 +1,10 @@
 package com.david42069.dualboothelper;
 
-import io.github.oneuiproject.sesl.preference.PreferenceFragment;
+import dev.oneuiproject.oneui.preference.HorizontalRadioPreference;
+import dev.oneuiproject.oneui.preference.TipsCardPreference;
+import dev.oneuiproject.oneui.preference.internal.PreferenceRelatedCard;
+import dev.oneuiproject.oneui.utils.PreferenceUtils;
+import dev.oneuiproject.oneui.widget.Toast;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.SharedPreferences;
