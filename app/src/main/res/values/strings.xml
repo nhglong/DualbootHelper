@@ -6,7 +6,7 @@
     <!-- Information layout strings -->
     <string name="info">Information</string>
     <!-- Placeholder info strings -->
-    <string name="dbinf">Dualboot info</string>
+    <string name="dbinf">Status</string>
     <string name="slota_os">OS on Slot A</string>
     <string name="slotb_os">OS on Slot B</string>
     <!-- Collected info strings -->
