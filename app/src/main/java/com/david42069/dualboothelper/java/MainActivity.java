@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import dev.oneuiproject.oneui.layout.ToolbarLayout;
 import dev.oneuiproject.oneui.utils.ActivityUtils;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.util.SeslMisc;
 import androidx.preference.DropDownPreference;
 import androidx.preference.EditTextPreference;
