@@ -1,5 +1,6 @@
 package com.david42069.dualboothelper;
 
+import io.github.oneuiproject.sesl.preference.PreferenceFragment;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.SharedPreferences;
