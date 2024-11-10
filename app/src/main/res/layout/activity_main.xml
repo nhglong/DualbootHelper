@@ -101,8 +101,12 @@
                 android:background="@color/oui_background_color"
                 android:orientation="vertical"
                 android:paddingHorizontal="12dp"
-                android:paddingVertical="12dp"
-                android:id="@+id/qact_container">
+                android:paddingVertical="12dp">
+
+                <FrameLayout
+                    android:id="@+id/pref_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
             </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 

@@ -4,6 +4,12 @@ import android.os.Bundle;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.DropDownPreference;
 import androidx.preference.PreferenceManager;
+import android.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.content.Context;
+import com.topjohnwu.superuser.Shell;
+
 
 public class PreferencesFragment extends PreferenceFragmentCompat {
 
@@ -84,7 +90,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
         }
 
         // Execute the shell command based on the selected action
-        Shell.cmd(getResources().openRawResource(getResources().getIdentifier(scriptFile.replace("R.raw.", ""), "raw", getPackageName()))).exec();
+        Shell.cmd(getResources().openRawResource(getResources().getIdentifier(scriptFile.replace("R.raw.", ""), "raw", getActivity().getPackageName()))).exec();
     }
 
 }

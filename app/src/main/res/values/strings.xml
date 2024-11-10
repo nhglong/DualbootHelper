@@ -39,6 +39,7 @@
     <string name="poweroff">Shut Down the system</string>
 
     <!-- Dialog strings -->
+    <string name="dialog_confirm_title">Confirmation</string>
     <string name="dialog_confirm">Are you sure?</string>
     <string name="dialog_yes">Yes</string>
     <string name="dialog_no">No</string>
