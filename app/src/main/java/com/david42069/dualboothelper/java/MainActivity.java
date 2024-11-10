@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Shell.getShell(shell -> {});
         ToolbarLayout toolbarLayout = findViewById(R.id.home);
+        cp(R.raw.parted, "parted");
+		cp(R.raw.jq, "jq");
 
         // Initialize the status and slot views
         updateStatusCardView();
@@ -66,6 +68,18 @@ public class MainActivity extends AppCompatActivity {
         // Set up new click listeners for CardView actions
         setupCardViewListeners();
     }
+
+    private void cp(int resourceId, String fileName) {
+        try (InputStream in = getResources().openRawResource(resourceId);
+             OutputStream out = new FileOutputStream(new File(getFilesDir(), fileName))) {
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = in.read(buffer)) > 0) {
+                out.write(buffer, 0, length);
+            }
+        } catch (IOException e) {
+            Log.e("FileCopyError", "Error copying file " + fileName, e);
+        }
 
     private void setupCardViewListeners() {
         // Slot A Actions
