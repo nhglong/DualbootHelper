@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Slot A Actions Dropdown -->
+    <DropDownPreference
+        android:key="slot_a_actions"
+        android:title="@string/slota_qact"
+        android:entries="@array/slota_entries"
+        android:entryValues="@array/slot_a_values"
+        android:defaultValue="@string/slota_placeholder"
+        android:id="@+id/slot_a_actions"
+        app:useSimpleSummaryProvider="true" />
+
+    <!-- Slot B Actions Dropdown -->
+    <DropDownPreference
+        android:key="slot_b_actions"
+        android:id="@+id/slot_b_actions"
+        android:title="@string/slotb_qact"
+        android:entries="@array/slotb_entries"
+        android:entryValues="@array/slot_b_values"
+        android:defaultValue="@string/slotb_placeholder"
+        app:useSimpleSummaryProvider="true" />
+
+    <!-- Misc Actions Dropdown -->
+    <DropDownPreference
+        android:key="misc_actions"
+        android:id="@+id/misc_actions"
+        android:title="@string/misc_qact"
+        android:entries="@array/misc_entries"
+        android:entryValues="@array/misc_values"
+        android:defaultValue="@string/misc_placeholder"
+        app:useSimpleSummaryProvider="true" />
+
+</PreferenceScreen>
+

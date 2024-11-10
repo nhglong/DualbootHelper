@@ -10,7 +10,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import dev.oneuiproject.oneui.layout.ToolbarLayout;
 import dev.oneuiproject.oneui.utils.ActivityUtils;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.util.SeslMisc;
 import androidx.preference.DropDownPreference;
+import androidx.preference.EditTextPreference;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.SeslSwitchPreferenceScreen;
+import androidx.preference.SwitchPreferenceCompat;
+
+import dev.oneuiproject.oneui.preference.HorizontalRadioPreference;
+import dev.oneuiproject.oneui.preference.TipsCardPreference;
+import dev.oneuiproject.oneui.preference.internal.PreferenceRelatedCard;
+import dev.oneuiproject.oneui.utils.PreferenceUtils;
+import dev.oneuiproject.oneui.widget.Toast;
 import android.app.Activity;
 import com.topjohnwu.superuser.Shell;
 import android.os.Bundle;
@@ -58,15 +73,20 @@ public class MainActivity extends AppCompatActivity {
         Shell.getShell(shell -> {});
         cp(R.raw.parted, "parted");
 		cp(R.raw.jq, "jq");
+        // Inflate my fragment
+        LinearLayout qactContainer = findViewById(R.id.qact_container);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View preferenceView = inflater.inflate(R.xml.fragment, null); // Assuming fragment.xml is your preference screen layout
+        qactContainer.addView(preferenceView);
         ToolbarLayout toolbarLayout = findViewById(R.id.home);
         updateStatusCardView();
         updateSlotCardView(R.id.slota_txt, SLOT_A_FILE_PATH);
         updateSlotCardView(R.id.slotb_txt, SLOT_B_FILE_PATH);
 
         // Set up the dropdown listeners
-        setupDropDownPreference(R.id.slot_a_actions, "slot_a_values");
-        setupDropDownPreference(R.id.slot_b_actions, "slot_b_values");
-        setupDropDownPreference(R.id.misc_actions, "misc_values");
+        setupDropDownPreference(slot_a_actions, "slot_a_values");
+        setupDropDownPreference(slot_b_actions, "slot_b_values");
+        setupDropDownPreference(misc_actions, "misc_values");
     }
 
     private void cp(int resourceId, String fileName) {
@@ -125,11 +145,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupDropDownPreference(int dropDownId, String valueArrayKey) {
-        DropDownPreference dropDown = findViewById(dropDownId);
-        dropDown.setOnPreferenceChangeListener((preference, newValue) -> {
+        DropDownPreference dropDownId = findPreference("dropDownId");
+        dropDownId.seslsetOnPreferenceChangeListener((preference, newValue) -> {
             showConfirmationDialog(newValue.toString());
             return true;
         });
+        // DropDownPreference dropDown = findViewById(dropDownId);
+        // dropDown.setOnPreferenceChangeListener((preference, newValue) -> {
+        //     showConfirmationDialog(newValue.toString());
+        //     return true;
+        // });
     }
 
     private void showConfirmationDialog(String scriptFile) {
