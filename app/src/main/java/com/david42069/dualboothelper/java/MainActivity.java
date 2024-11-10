@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             Log.e("MainActivity", "Error reading status.txt", e);
         }
-    
+    }
 
     private void updateSlotCardView(int cardViewId, String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(new File(filePath)))) {
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
 
             String textToDisplay = slotText.toString().trim().isEmpty() ? 
                                    getString(R.string.unavailable) : slotText.toString();
-    
+
             CardView slotCardView = findViewById(cardViewId);
             slotCardView.setSummaryText(textToDisplay);
 
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MainActivity", "Error reading " + filePath, e);
         }
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
