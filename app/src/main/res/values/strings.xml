@@ -25,10 +25,13 @@
     <!-- Quick action layout strings -->
     <string name="qact">Quick action</string>
     <string name="slota_qact">Slot A actions</string>
+    <string name="slota_description">Actions available on slot A</string>
     <string name="slotb_qact">Slot B actions</string>
+    <string name="slotb_description">Actions available on slot B</string>
     <string name="slota_placeholder">Reboot to slot A, Recovery A</string>
     <string name="slotb_placeholder">Reboot to slot B, Recovery B</string>
     <string name="misc_qact">Misc actions</string>
+    <string name="misc_description">Misc actions available</string>
     <string name="misc_placeholder">Reboot to Download Mode, Power off system</string>
     <!-- Buttons strings -->
     <string name="reboot_a">Reboot to Slot A</string>

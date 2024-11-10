@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dev.oneuiproject.oneui.layout.ToolbarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:expandable="true"
+    app:expanded="false"
+    app:subtitle="@string/slotb_description"
+    app:title="@string/qact"
+    android:id="@+id/slotb_act">
+
+    <androidx.core.widget.NestedScrollView 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?roundedCornerColor"
+        app:layout_location="main_content"
+        android:fillViewport="true"
+        android:overScrollMode="always"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            
+            <dev.oneuiproject.oneui.widget.RoundLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/oui_background_color"
+                android:orientation="vertical"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp">
+
+                    <dev.oneuiproject.oneui.widget.ui.widget.CardView
+                        android:id="@+id/reboot_b"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:IconDrawable="@drawable/ic_oui_restart"
+                        app:TitleText="@string/reboot_b"/>
+
+                    <dev.oneuiproject.oneui.widget.ui.widget.CardView
+                        android:id="@+id/recovery_b"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:IconDrawable="@drawable/ic_oui_lightning"
+                        app:TitleText="@string/recovery_b"/>
+
+            </dev.oneuiproject.oneui.widget.RoundLinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</dev.oneuiproject.oneui.layout.ToolbarLayout>
