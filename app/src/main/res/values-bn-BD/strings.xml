@@ -7,7 +7,7 @@
     <string name="info">তথ্য</string>
     <!-- Placeholder info strings -->
     <string name="dbinf">ডুয়ালবুট তথ্য </string>
-    <string name="slota_os">স্লট 'ক' অপারেটিং সিস্টেম:</string>
+    <string name="slota_os">স্লট &apos;ক&apos; অপারেটিং সিস্টেম:</string>
     <string name="slotb_os">স্লট বি অপারেটিং সিস্টেম:</string>
     <!-- Collected info strings -->
     <string name="not_installed">- ইনস্টল করা হয়নি </string>
@@ -25,8 +25,8 @@
     <!-- Quick action layout strings -->
     <string name="qact">কর্ম </string>
     <!-- Buttons strings -->
-    <string name="reboot_a">স্লট 'ক' তে Reboot করুন</string>
-    <string name="reboot_b">স্লট 'খ' তে Reboot করুন</string>
+    <string name="reboot_a">স্লট &apos;ক&apos; তে Reboot করুন</string>
+    <string name="reboot_b">স্লট &apos;খ&apos; তে Reboot করুন</string>
     <string name="recovery_a">ক স্লটএর Recovery তে Reboot করুন</string>
     <string name="recovery_b">খ স্লটএর Recovery তে Reboot করুন</string>
     <string name="dl_mode">ডাউনলোড মোডে Reboot করুন</string>
