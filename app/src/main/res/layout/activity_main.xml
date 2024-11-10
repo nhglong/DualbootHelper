@@ -101,7 +101,8 @@
                 android:background="@color/oui_background_color"
                 android:orientation="vertical"
                 android:paddingHorizontal="12dp"
-                android:paddingVertical="12dp">
+                android:paddingVertical="12dp"
+                android:id="@+id/qact_container">
 
                 <FrameLayout
                     android:id="@+id/pref_container"

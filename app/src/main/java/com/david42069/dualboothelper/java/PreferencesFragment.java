@@ -1,6 +1,7 @@
 package com.david42069.dualboothelper;
 
 import android.os.Bundle;
+import android.content.SharedPreferences;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.DropDownPreference;
 import androidx.preference.PreferenceManager;
