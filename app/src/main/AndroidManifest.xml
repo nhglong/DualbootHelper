@@ -39,8 +39,21 @@
         </activity>
 
         <activity
+            android:name=".SlotAActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".SlotBActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".MiscActionsActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".AboutActivity"
             android:exported="false" />
+
 
     </application>
 
