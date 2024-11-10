@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         updateStatusCardView();
         updateSlotCardView(R.id.slota_txt, SLOT_A_FILE_PATH);
         updateSlotCardView(R.id.slotb_txt, SLOT_B_FILE_PATH);
-        slotb.setText(slotbstring);
 
         // Dynamically add the PreferencesFragment
         if (savedInstanceState == null) {
