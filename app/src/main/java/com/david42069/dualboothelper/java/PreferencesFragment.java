@@ -1,6 +1,7 @@
 package com.david42069.dualboothelper;
 
 import android.os.Bundle;
+import android.app.Activity;
 import android.content.SharedPreferences;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.DropDownPreference;
@@ -37,7 +38,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
 
     private void showConfirmationDialog(String action) {
         Activity activity = requireActivity();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         String title = getString(R.string.dialog_confirm_title);
         String message = getString(R.string.dialog_confirm);
         String positiveButton = getString(R.string.dialog_yes);
@@ -56,7 +57,8 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
     }
 
     private void showLoadingDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        Activity activity = requireActivity();
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setCancelable(false);
         LayoutInflater inflater = activity.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.loading_dialog, null);
