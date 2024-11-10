@@ -5,7 +5,6 @@ import dev.oneuiproject.oneui.preference.TipsCardPreference;
 import dev.oneuiproject.oneui.preference.internal.PreferenceRelatedCard;
 import dev.oneuiproject.oneui.utils.PreferenceUtils;
 import dev.oneuiproject.oneui.widget.Toast;
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import androidx.preference.PreferenceFragmentCompat;
@@ -16,29 +15,87 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.content.Context;
 import com.topjohnwu.superuser.Shell;
+import android.content.Intent;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import dev.oneuiproject.oneui.layout.ToolbarLayout;
+import dev.oneuiproject.oneui.utils.ActivityUtils;
+import androidx.annotation.NonNull;
+import androidx.appcompat.util.SeslMisc;
+import androidx.preference.DropDownPreference;
+import androidx.preference.EditTextPreference;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.SeslSwitchPreferenceScreen;
+import androidx.preference.SwitchPreferenceCompat;
+import android.content.SharedPreferences;
+import android.widget.LinearLayout;
+import androidx.fragment.app.FragmentTransaction;
+import android.util.Log;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.FileReader;
+import android.view.View;
+import android.content.Context;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.OutputStream;
+import android.graphics.Color;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.ScaleAnimation;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDialog;
+import android.os.CountDownTimer;
+import android.net.Uri;
+import android.service.quicksettings.Tile;
+import android.service.quicksettings.TileService;
+import android.view.LayoutInflater;
+import androidx.annotation.StringRes;
+import dev.oneuiproject.oneui.widget.ui.widget.CardView;
+
 
 
 public class PreferencesFragment extends PreferenceFragmentCompat {
+
+    private boolean isPreferencesLoaded = false;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.fragment, rootKey); // Link to your preferences XML file
 
-        // Set up actions based on selection
+        // Initialize the flag when preferences are loaded
+        isPreferencesLoaded = true;
+
+        // Set up actions based on preference changes
         PreferenceManager.getDefaultSharedPreferences(requireContext())
                 .registerOnSharedPreferenceChangeListener((sharedPreferences, key) -> {
-                    if ("slot_a_actions".equals(key) || "slot_b_actions".equals(key) || "misc_actions".equals(key)) {
-                        String action = sharedPreferences.getString(key, "");
-                        showConfirmationDialog(action);
+                    if (isPreferencesLoaded) {  // Check flag to avoid initial triggering
+                        if ("slot_a_actions".equals(key) || "slot_b_actions".equals(key) || "misc_actions".equals(key)) {
+                            String action = sharedPreferences.getString(key, "");
+                            showConfirmationDialog(action);
+                        }
                     }
                 });
     }
 
-    private void onPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if ("slot_a_actions".equals(key) || "slot_b_actions".equals(key) || "misc_actions".equals(key)) {
-            String action = sharedPreferences.getString(key, "");
-            showConfirmationDialog(action);
-        }
+    // Ensure that the flag is reset when the fragment is detached
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        isPreferencesLoaded = false;
     }
 
     private void showConfirmationDialog(String action) {
