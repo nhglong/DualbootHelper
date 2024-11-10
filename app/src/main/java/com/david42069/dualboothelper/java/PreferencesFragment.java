@@ -36,6 +36,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
     }
 
     private void showConfirmationDialog(String action) {
+        requireActivity()
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String title = getString(R.string.dialog_confirm_title);
         String message = getString(R.string.dialog_confirm);
@@ -57,7 +58,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
     private void showLoadingDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false);
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = activity.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.loading_dialog, null);
         builder.setView(dialogView);
         AlertDialog dialog = builder.create();
