@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             Log.e("FileCopyError", "Error copying file " + fileName, e);
         }
+    }
 
     private void setupCardViewListeners() {
         // Slot A Actions
