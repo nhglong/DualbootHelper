@@ -56,17 +56,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Shell.getShell(shell -> {});
+        cp(R.raw.parted, "parted");
+		cp(R.raw.jq, "jq");
         ToolbarLayout toolbarLayout = findViewById(R.id.home);
         updateStatusCardView();
         updateSlotCardView(R.id.slota_txt, SLOT_A_FILE_PATH);
         updateSlotCardView(R.id.slotb_txt, SLOT_B_FILE_PATH);
 
-        setupButtonWithConfirmation(R.id.reboot_a, R.string.reboot_a, "R.raw.switcha");
-        setupButtonWithConfirmation(R.id.reboot_b, R.string.reboot_b, "R.raw.switchb");
-        setupButtonWithConfirmation(R.id.rec_a, R.string.recovery_a, "R.raw.switchar");
-        setupButtonWithConfirmation(R.id.rec_b, R.string.recovery_b, "R.raw.switchbr");
-        setupButtonWithConfirmation(R.id.bootloader, R.string.dl_mode, "R.raw.download");
-        setupButtonWithConfirmation(R.id.poweroff, R.string.poweroff, "R.raw.shutdown");
+        // Set up the dropdown listeners
+        setupDropDownPreference(R.id.slot_a_actions, "slot_a_values");
+        setupDropDownPreference(R.id.slot_b_actions, "slot_b_values");
+        setupDropDownPreference(R.id.misc_actions, "misc_values");
+    }
+
+    private void cp(int resourceId, String fileName) {
+        try (InputStream in = getResources().openRawResource(resourceId);
+             OutputStream out = new FileOutputStream(new File(getFilesDir(), fileName))) {
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = in.read(buffer)) > 0) {
+                out.write(buffer, 0, length);
+            }
+        } catch (IOException e) {
+            Log.e("FileCopyError", "Error copying file " + fileName, e);
+        }
     }
     
     private void updateStatusCardView() {
@@ -111,13 +124,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setupButtonWithConfirmation(int buttonId, int promptResId, String scriptFile) {
-        Button button = findViewById(buttonId);
-        button.setOnClickListener(v -> showConfirmationDialog(promptResId, scriptFile));
+    private void setupDropDownPreference(int dropDownId, String valueArrayKey) {
+        DropDownPreference dropDown = findViewById(dropDownId);
+        dropDown.setOnPreferenceChangeListener((preference, newValue) -> {
+            showConfirmationDialog(newValue.toString());
+            return true;
+        });
     }
-    private void showConfirmationDialog(int promptResId, String scriptFile) {
+
+    private void showConfirmationDialog(String scriptFile) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        String title = getString(promptResId) + "?";
+        String title = getString(R.string.confirmation_title);
         String message = getString(R.string.dialog_confirm);
         String positiveButton = getString(R.string.dialog_yes);
         String negativeButton = getString(R.string.dialog_no);
@@ -144,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
     }
-
+    
     private void executeShellCommand(String scriptFile) {
         Shell.cmd(getResources().openRawResource(getResources().getIdentifier(scriptFile.replace("R.raw.", ""), "raw", getPackageName()))).exec();
     }

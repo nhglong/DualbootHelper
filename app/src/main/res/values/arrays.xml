@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="slota_entries">
+        <item>@string/reboot_a</item>
+        <item>@string/recovery_a</item>
+    </string-array>
+    <string-array name="slotb_entries">
+        <item>@string/reboot_b</item>
+        <item>@string/recovery_b</item>
+    </string-array>
+
+    <string-array name="misc_entries">
+        <item>@string/dl_mode</item>
+        <item>@string/poweroff</item>
+    </string-array>
+
+    <!-- Values (used for scripting) -->
+    <string-array name="slot_a_values">
+        <item>"switcha"</item>
+        <item>"switchar"</item>
+    </string-array>
+
+    <string-array name="slot_b_values">
+        <item>"switchb"</item>
+        <item>"switchbr"</item>
+    </string-array>
+
+    <string-array name="misc_values">
+        <item>"download"</item>
+        <item>"shutdown"</item>
+    </string-array>
+</resources>

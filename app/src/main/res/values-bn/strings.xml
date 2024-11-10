@@ -1,0 +1,59 @@
+<resources>
+    <!-- Basic title and desc -->
+    <string name="app_name">ডুয়ালবুট হেল্প</string>
+    <string name="description">ডুয়ালবুটিং সমাধানের জন্য একটি সহায়ক অ্যাপ </string>
+
+    <!-- Information layout strings -->
+    <string name="info">তথ্য</string>
+    <!-- Placeholder info strings -->
+    <string name="dbinf">ডুয়ালবুট তথ্য </string>
+    <string name="slota_os">স্লট 'ক' অপারেটিং সিস্টেম:</string>
+    <string name="slotb_os">স্লট বি অপারেটিং সিস্টেম:</string>
+    <!-- Collected info strings -->
+    <string name="not_installed">- ইনস্টল করা হয়নি </string>
+    <string name="installed_v5">- ইনস্টল করা হয়েছে  (V5)</string>
+    <string name="installed_v4">- ইনস্টল করা হয়েছে  (V4)</string>
+    <string name="unavailable">অনুপলব্ধ  </string>
+    <string name="super_partition">- ডিভাইটি সুপার পার্টিশন ব্যবহার করে </string>
+    <string name="normal_naming">- ডিভাইটি স্বাভাবিক পার্টিশন ব্যবহার করে </string>
+    <string name="caps_naming">- ডিভাইস ক্যাপ নামকরণ পার্টিশন ব্যবহার করে </string>
+    <string name="ufs_sda">- ডিভাইস ব্যবহার করে UFS (sda)</string>
+    <string name="emmc_sdc">- ডিভাইস ব্যবহার করে EMMC (sdc)</string>
+    <string name="emmc_mmcblk0">- ডিভাইস ব্যবহার করে EMMC (mmcblk0)</string>
+    <string name="sudo_access">"ডিভাইস সম্পর্কে তথ্য সংগ্রহ করার জন্য অনুগ্রহ করে superuser (su) অ্যাক্সেস দিন "</string>
+
+    <!-- Quick action layout strings -->
+    <string name="qact">কর্ম </string>
+    <!-- Buttons strings -->
+    <string name="reboot_a">স্লট 'ক' তে Reboot করুন</string>
+    <string name="reboot_b">স্লট 'খ' তে Reboot করুন</string>
+    <string name="recovery_a">ক স্লটএর Recovery তে Reboot করুন</string>
+    <string name="recovery_b">খ স্লটএর Recovery তে Reboot করুন</string>
+    <string name="dl_mode">ডাউনলোড মোডে Reboot করুন</string>
+    <string name="poweroff">সিস্টেম কে বন ্ধকরুন</string>
+
+    <!-- Dialog strings -->
+    <string name="dialog_confirm">আপনি কি নিশ্চিত?</string>
+    <string name="dialog_yes">হ্যাঁ </string>
+    <string name="dialog_no">না </string>
+    <string name="reboot_wait">রিবুট করা হচ্ছে দয়া করে অপেক্ষা করুন...</string>
+
+    <!-- About strings -->
+    <!-- Team DB -->
+    <string name="db_dev">ডুয়ালবুট হেল্পার ডেভেলপার </string>
+    <!-- Our descriptions -->
+    <string name="david_desc">Samsung এর জন্য Dualboot এর প্রতিষ্ঠাতা </string>
+    <string name="bob_desc">OneUI স্টাইল দিয়ে এই অ্যাপটি তৈরি করেছি </string>
+    <!-- Team OUIP -->
+    <string name="ouip_team">OneUI প্রকল্প দল </string>
+    <!-- License strings -->
+    <string name="os_lic">ওপেন সোর্স লাইসেন্স </string>
+    <string name="gnu_lic">GNU লাইসেন্স </string>
+    <string name="apache_lic">অ্যাপাচি লাইসেন্স 2.0 </string>
+    <string name="mit_lic">আমার লাইসেন্স </string>
+
+    <!-- Links strings-->
+    <string name="links">দরকারী লিঙ্ক </string>
+    <string name="donate">আমাকে দান করুন! </string>
+    <string name="xda_post">XDA পোস্ট </string>
+</resources>
