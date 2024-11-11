@@ -7,7 +7,7 @@
     app:expandable="true"
     app:expanded="false"
     app:subtitle="@string/slota_description"
-    app:title="@string/qact"
+    app:title="@string/slota_qact"
     android:id="@+id/slota_act">
 
     <androidx.core.widget.NestedScrollView 
