@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                 String line;
     
                 while ((line = reader.readLine()) != null) {
-                    slotText.append(line).append("\n");
+                    slotText.append(line).append(" ");
                 }
     
                 textToDisplay = slotText.toString().trim().isEmpty() ? getString(R.string.unavailable) : slotText.toString();
