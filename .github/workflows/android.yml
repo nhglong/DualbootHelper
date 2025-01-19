@@ -28,6 +28,7 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
         KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
         KEY_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
