@@ -72,6 +72,7 @@ configurations.all {
 
 dependencies {
     //sesl androidx
+    implementation "io.github.oneuiproject:icons:1.1.0"
     implementation "sesl.androidx.core:core:1.15.0+1.0.11-sesl6+rev0"
     implementation "sesl.androidx.core:core-ktx:1.15.0+1.0.0-sesl6+rev0"
     implementation "sesl.androidx.customview:customview:1.2.0-alpha02+1.0.1-sesl6+rev0"
