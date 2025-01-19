@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences.registerOnSharedPreferenceChangeListener(preferenceChangeListener);
 
         // Update slot cards to reflect any changes
-        updateSlotCardView(R.id.slota_txt, sharedPreferences.getString("slotakey", getString(R.string.unavailable)));
-        updateSlotCardView(R.id.slotb_txt, sharedPreferences.getString("slotbkey", getString(R.string.unavailable)));
+        updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
+        updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
     }
 
     @Override
@@ -88,23 +88,41 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener =
             (sharedPreferences, key) -> {
                 if (key.equals("slotakey")) {
-                    updateSlotCardView(R.id.slota_txt, sharedPreferences.getString(key, getString(R.string.unavailable)));
+                    updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
                 } else if (key.equals("slotbkey")) {
-                    updateSlotCardView(R.id.slotb_txt, sharedPreferences.getString(key, getString(R.string.unavailable)));
+                    updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
                 }
             };
 
-    private void updateSlotCardView(int cardViewId, String slotValue) {
+    private void updateSlotCardView(int cardViewId, String preferenceKey, String filePath) {
         CardView slotCardView = findViewById(cardViewId);
         if (slotCardView != null) {
-            if (slotValue != null) {
-                slotValue = slotValue.replace("##UNAVAILABLE##", getString(R.string.unavailable));
+            String slotValue;
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            boolean isCustomizeSlotNameOn = sharedPreferences.getBoolean("customizeslotname", false);
+
+            if (isCustomizeSlotNameOn) {
+                slotValue = getPreferenceValue(preferenceKey, getString(R.string.unavailable));
+            } else {
+                File file = new File(filePath);
+                if (file.exists()) {
+                    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                        slotValue = reader.readLine();
+                        if (slotValue == null || slotValue.contains("##UNAVAILABLE##")) {
+                            slotValue = getString(R.string.unavailable);
+                        }
+                    } catch (IOException e) {
+                        Log.e("MainActivity", "Error reading file: " + filePath, e);
+                        slotValue = getString(R.string.unavailable);
+                    }
+                } else {
+                    slotValue = getString(R.string.unavailable);
+                }
             }
 
             slotCardView.setSummaryText(slotValue != null && !slotValue.trim().isEmpty() ? slotValue : getString(R.string.unavailable));
         }
     }
-
     private static String getStatusFilePath(Context context) {
         return new File(context.getFilesDir(), "status.txt").getPath();
     }
@@ -143,13 +161,9 @@ public class MainActivity extends AppCompatActivity {
                             cp(R.raw.slotatwrp, "slota.zip");
                             cp(R.raw.slotbtwrp, "slotb.zip");
 
-                            // Ensure preferences are initialized with file values on first launch
-                            initializePreferencesFromFile();
-
-
                             // Update UI with the latest values
-                            updateSlotCardView(R.id.slota_txt, getPreferenceValue("slotakey", getString(R.string.unavailable)));
-                            updateSlotCardView(R.id.slotb_txt, getPreferenceValue("slotbkey", getString(R.string.unavailable)));
+                            updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
+                            updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
                         } catch (Exception e) {
                             Log.e("MainActivity", "Error executing shell commands", e);
                         }
@@ -172,48 +186,6 @@ public class MainActivity extends AppCompatActivity {
     private String getPreferenceValue(String key, String fallback) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         return sharedPreferences.getString(key, fallback);
-    }
-
-    // Initialize preferences from file on first launch
-    private void initializePreferencesFromFile() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-        if (!sharedPreferences.contains("slotakey")) {
-            String slotAValue = readValueFromFile("slota.txt");
-            sharedPreferences.edit().putString("slotakey", slotAValue != null ? slotAValue : getString(R.string.unavailable)).apply();
-        }
-
-        if (!sharedPreferences.contains("slotbkey")) {
-            String slotBValue = readValueFromFile("slotb.txt");
-            sharedPreferences.edit().putString("slotbkey", slotBValue != null ? slotBValue : getString(R.string.unavailable)).apply();
-        }
-    }
-
-    // Read a value from a file
-    private String readValueFromFile(String fileName) {
-        File file = new File(getFilesDir(), fileName);
-        if (file.exists()) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                return reader.readLine();
-            } catch (IOException e) {
-                Log.e("MainActivity", "Error reading file: " + fileName, e);
-            }
-        }
-        return null;
-    }
-
-    private void registerPreferenceChangeListener() {
-        preferenceChangeListener = (sharedPreferences, key) -> {
-            if ("slotakey".equals(key)) {
-                String updatedValue = sharedPreferences.getString(key, getString(R.string.unavailable));
-                updateSlotCardView(R.id.slota_txt, updatedValue);
-            } else if ("slotbkey".equals(key)) {
-                String updatedValue = sharedPreferences.getString(key, getString(R.string.unavailable));
-                updateSlotCardView(R.id.slotb_txt, updatedValue);
-            }
-        };
-
-        sharedPreferences.registerOnSharedPreferenceChangeListener(preferenceChangeListener);
     }
 
     private void deleteFilesIfExist() {
@@ -295,20 +267,6 @@ public class MainActivity extends AppCompatActivity {
         CardView statusCardView = findViewById(R.id.status);
         statusCardView.setSummaryText(textToDisplay);
     }
-
-//    public void notifySlotUpdate(String preferenceKey, String updatedValue) {
-//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//
-//        // Update the preference value
-//        sharedPreferences.edit().putString(preferenceKey, updatedValue).apply();
-//
-//        // Update the corresponding card view
-//        if ("slotakey".equals(preferenceKey)) {
-//            updateSlotCardView(R.id.slota_txt, preferenceKey);
-//        } else if ("slotbkey".equals(preferenceKey)) {
-//            updateSlotCardView(R.id.slotb_txt, preferenceKey);
-//        }
-//    }
 
     private void setupCardViewWithConfirmation(int cardViewId, int promptResId, String scriptFile) {
         CardView cardView = findViewById(cardViewId);
