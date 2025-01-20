@@ -148,19 +148,22 @@ public class MainActivity extends AppCompatActivity {
         mLoadingDialog.setCancelable(false);
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Handler mainHandler = new Handler(Looper.getMainLooper());
-        RootChecker.checkRoot();
-            // Check root
+        mLoadingDialog.show();
+        executorService.execute(() -> {
+            try {
+                RootChecker.checkRoot();
+                // Check root
                 if (RootChecker.isRootAvailable()) {
-                    Shell.getShell(shell -> {});
+                    Shell.getShell(shell -> {
+                    });
                     deleteFilesIfExist();
-                    updateStatusCardView();
                     executorService.execute(() -> {
                         try {
                             cp(R.raw.parted, "parted");
                             cp(R.raw.jq, "jq");
                             cp(R.raw.slotatwrp, "slota.zip");
                             cp(R.raw.slotbtwrp, "slotb.zip");
-
+                            updateStatusCardView();
                             // Update UI with the latest values
                             updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
                             updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
@@ -171,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     CardItemView statusCV = findViewById(R.id.status);
                     statusCV.setSummary(getString(R.string.sudo_access));
-                    Log.e("MainActivity", "No root! Proceeding in safe mode" );
+                    Log.e("MainActivity", "No root! Proceeding in safe mode");
                 }
                 // Perform normal tasks
                 setupCardViewWithConfirmation(R.id.reboot_a, R.string.reboot_a, "R.raw.switcha");
@@ -180,8 +183,14 @@ public class MainActivity extends AppCompatActivity {
                 setupCardViewWithConfirmation(R.id.rec_b, R.string.recovery_b, "R.raw.switchbr");
                 setupCardViewWithConfirmation(R.id.bootloader, R.string.dl_mode, "R.raw.download");
                 setupCardViewWithConfirmation(R.id.poweroff, R.string.poweroff, "R.raw.shutdown");
+            } catch (Exception e) {
+                Log.e("MainActivity", "Error executing shell commands", e);
+            } finally {
+                // Dismiss loading dialog on the main thread
+                mainHandler.post(() -> mLoadingDialog.dismiss());
+            }
+        });
     }
-
     // Helper function to read preference value with fallback
     private String getPreferenceValue(String key, String fallback) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
