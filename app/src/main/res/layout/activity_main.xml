@@ -104,7 +104,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     app:title="@string/reboot_a"
-                    app:IconDrawable="@drawable/ic_oui_restart"
+                    app:icon="@drawable/ic_oui_restart"
                     app:showTopDivider="false" />
 
                 <dev.oneuiproject.oneui.widget.CardItemView
@@ -114,7 +114,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     app:title="@string/recovery_a"
-                    app:IconDrawable="@drawable/ic_oui_lightning" />
+                    app:icon="@drawable/ic_oui_lightning" />
 
             </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 
@@ -136,7 +136,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     app:title="@string/reboot_b"
-                    app:IconDrawable="@drawable/ic_oui_restart"
+                    app:icon="@drawable/ic_oui_restart"
                     app:showTopDivider="false" />
 
                 <dev.oneuiproject.oneui.widget.CardItemView
@@ -146,7 +146,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     app:title="@string/recovery_b"
-                    app:IconDrawable="@drawable/ic_oui_lightning" />
+                    app:icon="@drawable/ic_oui_lightning" />
 
             </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 
@@ -168,7 +168,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     app:title="@string/dl_mode"
-                    app:IconDrawable="@drawable/ic_oui_save"
+                    app:icon="@drawable/ic_oui_save"
                     app:showTopDivider="false" />
 
                 <dev.oneuiproject.oneui.widget.CardItemView
@@ -178,7 +178,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     app:title="@string/poweroff"
-                    app:IconDrawable="@drawable/ic_oui_power" />
+                    app:icon="@drawable/ic_oui_power" />
 
             </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 

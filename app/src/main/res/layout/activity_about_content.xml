@@ -27,7 +27,7 @@
                 android:id="@+id/about_bottom_dev_david"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:IconDrawable="@drawable/about_page_avatar_david"
+                app:icon="@drawable/about_page_avatar_david"
                 app:title="David42069"
                 app:showTopDivider="false" />
 
@@ -35,7 +35,7 @@
                 android:id="@+id/about_bottom_dev_bob"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:IconDrawable="@drawable/about_page_avatar_bob"
+                app:icon="@drawable/about_page_avatar_bob"
                 app:title="Bobert"
                 app:SummaryText="@string/bob_desc" />
 
@@ -56,7 +56,7 @@
                 android:id="@+id/about_bottom_dev_tribalfs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:IconDrawable="@drawable/about_page_avatar_tribalfs"
+                app:icon="@drawable/about_page_avatar_tribalfs"
                 app:title="Tribalfs"
                 app:showTopDivider="false" />
 
@@ -64,14 +64,14 @@
                 android:id="@+id/about_bottom_dev_yann"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:IconDrawable="@drawable/about_page_avatar_yann"
+                app:icon="@drawable/about_page_avatar_yann"
                 app:title="Yanndroid" />
 
             <dev.oneuiproject.oneui.widget.CardItemView
                 android:id="@+id/about_bottom_dev_salvo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:IconDrawable="@drawable/about_page_avatar_salvo"
+                app:icon="@drawable/about_page_avatar_salvo"
                 app:title="Salvo Giangreco" />
 
         </dev.oneuiproject.oneui.widget.RoundLinearLayout>
