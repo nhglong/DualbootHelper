@@ -141,54 +141,51 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
-        ToolbarLayout toolbarLayout = findViewById(R.id.home);
         setContentView(R.layout.activity_main);
+        ToolbarLayout toolbarLayout = findViewById(R.id.home);
         mLoadingDialog = new ProgressDialog(this);
         mLoadingDialog.setProgressStyle(ProgressDialog.STYLE_CIRCLE);
         mLoadingDialog.setCancelable(false);
+        mLoadingDialog.show();
+
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Handler mainHandler = new Handler(Looper.getMainLooper());
-        mLoadingDialog.show();
+
         executorService.execute(() -> {
             try {
                 RootChecker.checkRoot();
-                // Check root
                 if (RootChecker.isRootAvailable()) {
-                    Shell.getShell(shell -> {
-                    });
+                    Shell.getShell(shell -> {});
                     deleteFilesIfExist();
-                    executorService.execute(() -> {
-                        try {
-                            cp(R.raw.parted, "parted");
-                            cp(R.raw.jq, "jq");
-                            cp(R.raw.slotatwrp, "slota.zip");
-                            cp(R.raw.slotbtwrp, "slotb.zip");
-                            updateStatusCardView();
-                            // Update UI with the latest values
-                            updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
-                            updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
-                        } catch (Exception e) {
-                            Log.e("MainActivity", "Error executing shell commands", e);
-                        }
+                    cp(R.raw.parted, "parted");
+                    cp(R.raw.jq, "jq");
+                    cp(R.raw.slotatwrp, "slota.zip");
+                    cp(R.raw.slotbtwrp, "slotb.zip");
+                    mainHandler.post(() -> {
+                        updateStatusCardView();
+                        updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
+                        updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
                     });
                 } else {
-                    CardItemView statusCV = findViewById(R.id.status);
-                    statusCV.setSummary(getString(R.string.sudo_access));
-                    Log.e("MainActivity", "No root! Proceeding in safe mode");}
-                } catch (Exception e) {
-                    Log.e("MainActivity", "Error executing shell commands", e);
-                } finally {
-                    // Dismiss loading dialog on the main thread
-                    mainHandler.post(() -> mLoadingDialog.dismiss());
+                    mainHandler.post(() -> {
+                        CardItemView statusCV = findViewById(R.id.status);
+                        statusCV.setSummary(getString(R.string.sudo_access));
+                        Log.e("MainActivity", "No root! Proceeding in safe mode");
+                    });
                 }
-            });
-        // Perform normal tasks
-        setupCardViewWithConfirmation(R.id.reboot_a, R.string.reboot_a, "R.raw.switcha");
-        setupCardViewWithConfirmation(R.id.reboot_b, R.string.reboot_b, "R.raw.switchb");
-        setupCardViewWithConfirmation(R.id.rec_a, R.string.recovery_a, "R.raw.switchar");
-        setupCardViewWithConfirmation(R.id.rec_b, R.string.recovery_b, "R.raw.switchbr");
-        setupCardViewWithConfirmation(R.id.bootloader, R.string.dl_mode, "R.raw.download");
-        setupCardViewWithConfirmation(R.id.poweroff, R.string.poweroff, "R.raw.shutdown");
+                setupCardViewWithConfirmation(R.id.reboot_a, R.string.reboot_a, "R.raw.switcha");
+                setupCardViewWithConfirmation(R.id.reboot_b, R.string.reboot_b, "R.raw.switchb");
+                setupCardViewWithConfirmation(R.id.rec_a, R.string.recovery_a, "R.raw.switchar");
+                setupCardViewWithConfirmation(R.id.rec_b, R.string.recovery_b, "R.raw.switchbr");
+                setupCardViewWithConfirmation(R.id.bootloader, R.string.dl_mode, "R.raw.download");
+                setupCardViewWithConfirmation(R.id.poweroff, R.string.poweroff, "R.raw.shutdown");
+            } catch (Exception e) {
+                Log.e("MainActivity", "Error executing shell commands", e);
+            } finally {
+                mainHandler.post(() -> mLoadingDialog.dismiss());
+            }
+        });
+
     }
     // Helper function to read preference value with fallback
     private String getPreferenceValue(String key, String fallback) {
