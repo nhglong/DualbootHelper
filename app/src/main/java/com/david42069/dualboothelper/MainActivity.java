@@ -37,7 +37,7 @@ import androidx.appcompat.app.AlertDialog;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 
-import dev.oneuiproject.oneui.widget.CardView;
+import dev.oneuiproject.oneui.widget.CardItemView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             };
 
     private void updateSlotCardView(int cardViewId, String preferenceKey, String filePath) {
-        CardView slotCardView = findViewById(cardViewId);
+        CardItemView slotCardView = findViewById(cardViewId);
         if (slotCardView != null) {
             String slotValue;
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            slotCardView.setSummaryText(slotValue != null && !slotValue.trim().isEmpty() ? slotValue : getString(R.string.unavailable));
+            slotCardView.setSummary(slotValue != null && !slotValue.trim().isEmpty() ? slotValue : getString(R.string.unavailable));
         }
     }
     private static String getStatusFilePath(Context context) {
@@ -169,8 +169,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                 } else {
-                    CardView statusCV = findViewById(R.id.status);
-                    statusCV.setSummaryText(getString(R.string.sudo_access));
+                    CardItemView statusCV = findViewById(R.id.status);
+                    statusCV.setSummary(getString(R.string.sudo_access));
                     Log.e("MainActivity", "No root! Proceeding in safe mode" );
                 }
                 // Perform normal tasks
@@ -264,12 +264,12 @@ public class MainActivity extends AppCompatActivity {
             textToDisplay = getString(R.string.sudo_access);  // Placeholder if file does not exist
         }
 
-        CardView statusCardView = findViewById(R.id.status);
-        statusCardView.setSummaryText(textToDisplay);
+        CardItemView statusCardView = findViewById(R.id.status);
+        statusCardView.setSummary(textToDisplay);
     }
 
     private void setupCardViewWithConfirmation(int cardViewId, int promptResId, String scriptFile) {
-        CardView cardView = findViewById(cardViewId);
+        CardItemView cardView = findViewById(cardViewId);
         cardView.setOnClickListener(v -> showConfirmationDialog(promptResId, scriptFile));
     }
 

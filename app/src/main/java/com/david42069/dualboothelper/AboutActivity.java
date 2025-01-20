@@ -37,6 +37,7 @@ import com.david42069.dualboothelper.databinding.ActivityAboutContentBinding;
 
 import dev.oneuiproject.oneui.utils.DeviceLayoutUtil;
 import dev.oneuiproject.oneui.widget.Toast;
+import dev.oneuiproject.oneui.widget.CardItemView;
 
 public class AboutActivity extends AppCompatActivity
         implements View.OnClickListener {
