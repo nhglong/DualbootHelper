@@ -161,13 +161,17 @@ public class MainActivity extends AppCompatActivity {
                     cp(R.raw.jq, "jq");
                     cp(R.raw.slotatwrp, "slota.zip");
                     cp(R.raw.slotbtwrp, "slotb.zip");
+                    mainHandler.post(() -> {
                         updateStatusCardView();
                         updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
                         updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
-                } else {
+                    });
+                    } else {
+                    mainHandler.post(() -> {
                         CardItemView statusCV = findViewById(R.id.status);
                         statusCV.setSummary(getString(R.string.sudo_access));
                         Log.e("MainActivity", "No root! Proceeding in safe mode");
+                    });
                 }
             } catch (Exception e) {
                 Log.e("MainActivity", "Error executing shell commands", e);
