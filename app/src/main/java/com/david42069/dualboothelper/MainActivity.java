@@ -161,32 +161,29 @@ public class MainActivity extends AppCompatActivity {
                     cp(R.raw.jq, "jq");
                     cp(R.raw.slotatwrp, "slota.zip");
                     cp(R.raw.slotbtwrp, "slotb.zip");
-                    mainHandler.post(() -> {
                         updateStatusCardView();
                         updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
                         updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
-                    });
                 } else {
-                    mainHandler.post(() -> {
                         CardItemView statusCV = findViewById(R.id.status);
                         statusCV.setSummary(getString(R.string.sudo_access));
                         Log.e("MainActivity", "No root! Proceeding in safe mode");
-                    });
                 }
-                setupCardViewWithConfirmation(R.id.reboot_a, R.string.reboot_a, "R.raw.switcha");
-                setupCardViewWithConfirmation(R.id.reboot_b, R.string.reboot_b, "R.raw.switchb");
-                setupCardViewWithConfirmation(R.id.rec_a, R.string.recovery_a, "R.raw.switchar");
-                setupCardViewWithConfirmation(R.id.rec_b, R.string.recovery_b, "R.raw.switchbr");
-                setupCardViewWithConfirmation(R.id.bootloader, R.string.dl_mode, "R.raw.download");
-                setupCardViewWithConfirmation(R.id.poweroff, R.string.poweroff, "R.raw.shutdown");
             } catch (Exception e) {
                 Log.e("MainActivity", "Error executing shell commands", e);
             } finally {
                 mainHandler.post(() -> mLoadingDialog.dismiss());
             }
         });
+        setupCardViewWithConfirmation(R.id.reboot_a, R.string.reboot_a, "R.raw.switcha");
+        setupCardViewWithConfirmation(R.id.reboot_b, R.string.reboot_b, "R.raw.switchb");
+        setupCardViewWithConfirmation(R.id.rec_a, R.string.recovery_a, "R.raw.switchar");
+        setupCardViewWithConfirmation(R.id.rec_b, R.string.recovery_b, "R.raw.switchbr");
+        setupCardViewWithConfirmation(R.id.bootloader, R.string.dl_mode, "R.raw.download");
+        setupCardViewWithConfirmation(R.id.poweroff, R.string.poweroff, "R.raw.shutdown");
 
     }
+
     // Helper function to read preference value with fallback
     private String getPreferenceValue(String key, String fallback) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
