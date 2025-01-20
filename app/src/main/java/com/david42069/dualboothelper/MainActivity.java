@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
         return new File(context.getFilesDir(), "slotb.txt").getPath();
     }
 
-    private ProgressDialog mLoadingDialog;private static Handler mainHandler = new Handler(Looper.getMainLooper());
+    private ProgressDialog mLoadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,22 +174,21 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     CardItemView statusCV = findViewById(R.id.status);
                     statusCV.setSummary(getString(R.string.sudo_access));
-                    Log.e("MainActivity", "No root! Proceeding in safe mode");
+                    Log.e("MainActivity", "No root! Proceeding in safe mode");}
+                } catch (Exception e) {
+                    Log.e("MainActivity", "Error executing shell commands", e);
+                } finally {
+                    // Dismiss loading dialog on the main thread
+                    mainHandler.post(() -> mLoadingDialog.dismiss());
                 }
-                // Perform normal tasks
-                setupCardViewWithConfirmation(R.id.reboot_a, R.string.reboot_a, "R.raw.switcha");
-                setupCardViewWithConfirmation(R.id.reboot_b, R.string.reboot_b, "R.raw.switchb");
-                setupCardViewWithConfirmation(R.id.rec_a, R.string.recovery_a, "R.raw.switchar");
-                setupCardViewWithConfirmation(R.id.rec_b, R.string.recovery_b, "R.raw.switchbr");
-                setupCardViewWithConfirmation(R.id.bootloader, R.string.dl_mode, "R.raw.download");
-                setupCardViewWithConfirmation(R.id.poweroff, R.string.poweroff, "R.raw.shutdown");
-            } catch (Exception e) {
-                Log.e("MainActivity", "Error executing shell commands", e);
-            } finally {
-                // Dismiss loading dialog on the main thread
-                mainHandler.post(() -> mLoadingDialog.dismiss());
-            }
-        });
+            });
+        // Perform normal tasks
+        setupCardViewWithConfirmation(R.id.reboot_a, R.string.reboot_a, "R.raw.switcha");
+        setupCardViewWithConfirmation(R.id.reboot_b, R.string.reboot_b, "R.raw.switchb");
+        setupCardViewWithConfirmation(R.id.rec_a, R.string.recovery_a, "R.raw.switchar");
+        setupCardViewWithConfirmation(R.id.rec_b, R.string.recovery_b, "R.raw.switchbr");
+        setupCardViewWithConfirmation(R.id.bootloader, R.string.dl_mode, "R.raw.download");
+        setupCardViewWithConfirmation(R.id.poweroff, R.string.poweroff, "R.raw.shutdown");
     }
     // Helper function to read preference value with fallback
     private String getPreferenceValue(String key, String fallback) {
