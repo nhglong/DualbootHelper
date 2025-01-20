@@ -165,6 +165,7 @@ public class AboutActivity extends AppCompatActivity
         TooltipCompat.setTooltipText(mBinding.aboutHeaderTelegram, "Telegram");
 
         mBottomContent.aboutBottomDevYann.setOnClickListener(this);
+        mBottomContent.aboutBottomDevTribalfs.setOnClickListener(this);
         mBottomContent.aboutBottomDevSalvo.setOnClickListener(this);
         mBottomContent.aboutBottomDevBob.setOnClickListener(this);
         mBottomContent.aboutBottomDevDavid.setOnClickListener(this);
@@ -182,6 +183,7 @@ public class AboutActivity extends AppCompatActivity
         mBinding.aboutHeaderGithub.setEnabled(!enabled);
         mBinding.aboutHeaderTelegram.setEnabled(!enabled);
         mBottomContent.aboutBottomDevYann.setEnabled(enabled);
+        mBottomContent.aboutBottomDevTribalfs.setEnabled(enabled);
         mBottomContent.aboutBottomDevSalvo.setEnabled(enabled);
         mBottomContent.aboutBottomOssApache.setEnabled(enabled);
         mBottomContent.aboutBottomOssMit.setEnabled(enabled);
@@ -209,6 +211,8 @@ public class AboutActivity extends AppCompatActivity
                 url = "https://github.com/justin-a30";
             } else if (v.getId() == mBottomContent.aboutBottomDevYann.getId()) {
                 url = "https://github.com/Yanndroid";
+            } else if (v.getId() == mBottomContent.aboutBottomDevTribalfs.getId()) {
+                url = "https://github.com/tribalfs";
             } else if (v.getId() == mBottomContent.aboutBottomDevSalvo.getId()) {
                 url = "https://github.com/salvogiangri";
             } else if (v.getId() == mBottomContent.aboutBottomGnu.getId()) {
