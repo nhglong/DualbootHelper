@@ -60,87 +60,11 @@ public class MainActivity extends AppCompatActivity {
         PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(preferenceChangeListener);
     }
 
-    public static class RootChecker {
-        private static boolean isRootAvailable = false;
-
-        public static boolean isRootAvailable() {
-            return isRootAvailable;
-        }
-
-        public static void checkRoot() {
-            // Check for root access
-            isRootAvailable = checkForRoot();
-        }
-
-        private static boolean checkForRoot() {
-            try {
-                // Execute the command to check for root access
-                String output = Shell.cmd("id -u").exec().getOut().get(0);
-                return "0".equals(output);
-            } catch (Exception e) {
-                // Handle exceptions (e.g., security exceptions)
-                e.printStackTrace();
-            }
-            return false;
-        }
-    }
-
-    private SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener =
-            (sharedPreferences, key) -> {
-                if (key.equals("slotakey")) {
-                    updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
-                } else if (key.equals("slotbkey")) {
-                    updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
-                }
-            };
-
-    private void updateSlotCardView(int cardViewId, String preferenceKey, String filePath) {
-        CardItemView slotCardView = findViewById(cardViewId);
-        if (slotCardView != null) {
-            String slotValue;
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-            boolean isCustomizeSlotNameOn = sharedPreferences.getBoolean("customizeslotname", false);
-
-            if (isCustomizeSlotNameOn) {
-                slotValue = getPreferenceValue(preferenceKey, getString(R.string.unavailable));
-            } else {
-                File file = new File(filePath);
-                if (file.exists()) {
-                    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                        slotValue = reader.readLine();
-                        if (slotValue == null || slotValue.contains("##UNAVAILABLE##")) {
-                            slotValue = getString(R.string.unavailable);
-                        }
-                    } catch (IOException e) {
-                        Log.e("MainActivity", "Error reading file: " + filePath, e);
-                        slotValue = getString(R.string.unavailable);
-                    }
-                } else {
-                    slotValue = getString(R.string.unavailable);
-                }
-            }
-
-            slotCardView.setSummary(slotValue != null && !slotValue.trim().isEmpty() ? slotValue : getString(R.string.unavailable));
-        }
-    }
-    private static String getStatusFilePath(Context context) {
-        return new File(context.getFilesDir(), "status.txt").getPath();
-    }
-
-    public static String getSlotAFilePath(Context context) {
-        return new File(context.getFilesDir(), "slota.txt").getPath();
-    }
-
-    public static String getSlotBFilePath(Context context) {
-        return new File(context.getFilesDir(), "slotb.txt").getPath();
-    }
-
-    private ProgressDialog mLoadingDialog;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
+        Shell.getShell(shell -> {});
         setContentView(R.layout.activity_main);
         ToolbarLayout toolbarLayout = findViewById(R.id.home);
         mLoadingDialog = new ProgressDialog(this);
@@ -155,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
             try {
                 RootChecker.checkRoot();
                 if (RootChecker.isRootAvailable()) {
-                    Shell.getShell(shell -> {});
                     deleteFilesIfExist();
                     cp(R.raw.parted, "parted");
                     cp(R.raw.jq, "jq");
@@ -186,6 +109,84 @@ public class MainActivity extends AppCompatActivity {
         setupCardViewWithConfirmation(R.id.poweroff, R.string.poweroff, "R.raw.shutdown");
 
     }
+
+    public static class RootChecker {
+
+        private static boolean isRootAvailable = false;
+
+        public static boolean isRootAvailable() {
+            return isRootAvailable;
+        }
+
+        public static void checkRoot() {
+            // Check for root access
+            isRootAvailable = checkForRoot();
+        }
+        private static boolean checkForRoot() {
+            try {
+                // Execute the command to check for root access
+                String output = Shell.cmd("id -u").exec().getOut().get(0);
+                return "0".equals(output);
+            } catch (Exception e) {
+                // Handle exceptions (e.g., security exceptions)
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+    }
+
+    private SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener =
+            (sharedPreferences, key) -> {
+                if (key.equals("slotakey")) {
+                    updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
+                } else if (key.equals("slotbkey")) {
+                    updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
+                }
+            };
+    private void updateSlotCardView(int cardViewId, String preferenceKey, String filePath) {
+        CardItemView slotCardView = findViewById(cardViewId);
+        if (slotCardView != null) {
+            String slotValue;
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            boolean isCustomizeSlotNameOn = sharedPreferences.getBoolean("customizeslotname", false);
+
+            if (isCustomizeSlotNameOn) {
+                slotValue = getPreferenceValue(preferenceKey, getString(R.string.unavailable));
+            } else {
+                File file = new File(filePath);
+                if (file.exists()) {
+                    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                        slotValue = reader.readLine();
+                        if (slotValue == null || slotValue.contains("##UNAVAILABLE##")) {
+                            slotValue = getString(R.string.unavailable);
+                        }
+                    } catch (IOException e) {
+                        Log.e("MainActivity", "Error reading file: " + filePath, e);
+                        slotValue = getString(R.string.unavailable);
+                    }
+                } else {
+                    slotValue = getString(R.string.unavailable);
+                }
+            }
+
+            slotCardView.setSummary(slotValue != null && !slotValue.trim().isEmpty() ? slotValue : getString(R.string.unavailable));
+        }
+    }
+
+    private static String getStatusFilePath(Context context) {
+        return new File(context.getFilesDir(), "status.txt").getPath();
+    }
+
+    public static String getSlotAFilePath(Context context) {
+        return new File(context.getFilesDir(), "slota.txt").getPath();
+    }
+
+    public static String getSlotBFilePath(Context context) {
+        return new File(context.getFilesDir(), "slotb.txt").getPath();
+    }
+
+    private ProgressDialog mLoadingDialog;
 
     // Helper function to read preference value with fallback
     private String getPreferenceValue(String key, String fallback) {
