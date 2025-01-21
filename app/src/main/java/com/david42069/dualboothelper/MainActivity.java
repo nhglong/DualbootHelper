@@ -175,9 +175,13 @@ public class MainActivity extends AppCompatActivity {
                 });
                     } else {
                     executorService.execute(() -> {
-                        CardItemView statusCV = findViewById(R.id.status);
-                        statusCV.setSummary(getString(R.string.sudo_access));
-                        Log.e("MainActivity", "No root! Proceeding in safe mode");
+                        try {
+                            CardItemView statusCV = findViewById(R.id.status);
+                            statusCV.setSummary(getString(R.string.sudo_access));
+                            Log.e("MainActivity", "No root! Proceeding in safe mode");
+                        } catch (Exception e) {
+                            Log.e("MainActivity", "Error updating values", e);
+                        }
                     });
                 }
             } catch (Exception e) {
