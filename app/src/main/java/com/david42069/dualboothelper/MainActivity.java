@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Log.e("MainActivity", "Error executing shell commands", e);
             } finally {
-                mLoadingDialog.dismiss();
+                mainHandler.post(() -> mLoadingDialog.dismiss());
             }
         });
         setupCardViewWithConfirmation(R.id.reboot_a, R.string.reboot_a, "R.raw.switcha");
