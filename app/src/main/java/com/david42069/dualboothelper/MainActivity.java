@@ -305,7 +305,7 @@ public class MainActivity extends AppCompatActivity {
             // Show a dialog informing the user about missing SU access
             new AlertDialog.Builder(this)
                     .setTitle(getString(R.string.not_installed_title)) // Use a title like "Permission Denied"
-                    .setMessage(getString(R.string.sudo_access)) // Message about needing superuser access
+                    .setMessage(getString(R.string.not_installed_diag)) // Message about needing superuser access
                     .setPositiveButton(getString(R.string.dialog_ok), null) // OK button that does nothing
                     .create()
                     .show();
