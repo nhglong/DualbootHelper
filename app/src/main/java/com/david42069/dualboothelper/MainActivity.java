@@ -161,13 +161,20 @@ public class MainActivity extends AppCompatActivity {
                     cp(R.raw.jq, "jq");
                     cp(R.raw.slotatwrp, "slota.zip");
                     cp(R.raw.slotbtwrp, "slotb.zip");
-                    mainHandler.post(() -> {
-                        updateStatusCardView();
-                        updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
-                        updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
-                    });
+                    executorService.execute(() -> {
+                        try {
+                            Thread.sleep(500);
+                            updateStatusCardView();
+                            Thread.sleep(500);
+                            updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
+                            Thread.sleep(500);
+                            updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
+                        } catch (Exception e) {
+                            Log.e("MainActivity", "Error updating values", e);
+                        }
+                });
                     } else {
-                    mainHandler.post(() -> {
+                    executorService.execute(() -> {
                         CardItemView statusCV = findViewById(R.id.status);
                         statusCV.setSummary(getString(R.string.sudo_access));
                         Log.e("MainActivity", "No root! Proceeding in safe mode");
