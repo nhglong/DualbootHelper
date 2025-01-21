@@ -232,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private boolean notInstalled = false;
     private void updateStatusCardView() {
         File statusFile = new File(getStatusFilePath(this));
         String textToDisplay;
@@ -242,6 +243,9 @@ public class MainActivity extends AppCompatActivity {
                 String line;
 
                 while ((line = reader.readLine()) != null) {
+                    if (line.contains("##NOT_INSTALLED##")) {
+                        notInstalled = true;
+                    }
                     line = line.replace("##NOT_INSTALLED##", getString(R.string.not_installed))
                             .replace("##INSTALLED_V5##", getString(R.string.installed_v5))
                             .replace("##INSTALLED_V4##", getString(R.string.installed_v4))
@@ -297,7 +301,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void showConfirmationDialog(int promptResId, String scriptFile) {
 
-        if (!RootChecker.isRootAvailable()) {
+        if (notInstalled) {
+            // Show a dialog informing the user about missing SU access
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.not_installed_title)) // Use a title like "Permission Denied"
+                    .setMessage(getString(R.string.sudo_access)) // Message about needing superuser access
+                    .setPositiveButton(getString(R.string.dialog_ok), null) // OK button that does nothing
+                    .create()
+                    .show();
+            return; // Exit the method since SU access is required
+        } else if (!RootChecker.isRootAvailable()) {
             // Show a dialog informing the user about missing SU access
             new AlertDialog.Builder(this)
                     .setTitle(getString(R.string.sudo_access_title)) // Use a title like "Permission Denied"

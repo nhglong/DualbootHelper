@@ -29,7 +29,8 @@
                 android:layout_height="wrap_content"
                 app:icon="@drawable/about_page_avatar_david"
                 app:title="David42069"
-                app:showTopDivider="false" />
+                app:showTopDivider="false"
+                app:summary="@string/david_desc" />
 
             <dev.oneuiproject.oneui.widget.CardItemView
                 android:id="@+id/about_bottom_dev_bob"
