@@ -86,15 +86,18 @@ public class MainActivity extends AppCompatActivity {
                     cp(R.raw.slotatwrp, "slota.zip");
                     cp(R.raw.slotbtwrp, "slotb.zip");
                     Thread.sleep(500);
-                    updateStatusCardView();
-                    Thread.sleep(500);
-                    updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
-                    Thread.sleep(500);
-                    updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
+                    Shell.cmd(getResources().openRawResource(R.raw.updatedata)).exec();
+                    mainHandler.post(() -> {
+                        updateStatusCardView();
+                        updateSlotCardView(R.id.slota_txt, "slotakey", getSlotAFilePath(this));
+                        updateSlotCardView(R.id.slotb_txt, "slotbkey", getSlotBFilePath(this));
+                    });
                 } else {
-                    CardItemView statusCV = findViewById(R.id.status);
-                    statusCV.setSummary(getString(R.string.sudo_access));
-                    Log.e("MainActivity", "No root! Proceeding in safe mode");
+                    mainHandler.post(() -> {
+                        CardItemView statusCV = findViewById(R.id.status);
+                        statusCV.setSummary(getString(R.string.sudo_access));
+                        Log.e("MainActivity", "No root! Proceeding in safe mode");
+                    });
                 }
             } catch (Exception e) {
                 Log.e("MainActivity", "Error executing shell commands", e);
@@ -230,7 +233,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateStatusCardView() {
-        Shell.cmd(getResources().openRawResource(R.raw.updatedata)).exec();
         File statusFile = new File(getStatusFilePath(this));
         String textToDisplay;
 
