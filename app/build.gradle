@@ -12,11 +12,11 @@ def locales = file('src/main/res').listFiles(new FilenameFilter() {
 print("Locales: " + locales.join(', '))
 
 android {
-    namespace 'com.david42069.dualboothelper' /*TODO: change packageName*/
+    namespace 'com.david42069.dualboothelper'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.david42069.dualboothelper" /*TODO: change packageName*/
+        applicationId "com.david42069.dualboothelper"
         minSdk 26
         targetSdk 33
         versionCode 4

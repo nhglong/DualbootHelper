@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 app:icon="@drawable/about_page_avatar_bob"
                 app:title="Bobert"
-                app:SummaryText="@string/bob_desc" />
+                app:summary="@string/bob_desc" />
 
         </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 
@@ -93,7 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="@string/gnu_lic"
-            app:SummaryText="DualbootHelper"
+            app:summary="DualbootHelper"
             app:showTopDivider="false" />
 
         <dev.oneuiproject.oneui.widget.CardItemView
@@ -101,14 +101,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="@string/apache_lic"
-            app:SummaryText="androidx  •  material-components-android • sesl-androidx  •  sesl-material-components-android  •  lottie" />
+            app:summary="androidx  •  material-components-android • sesl-androidx  •  sesl-material-components-android  •  lottie" />
 
         <dev.oneuiproject.oneui.widget.CardItemView
             android:id="@+id/about_bottom_oss_mit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="@string/mit_lic"
-            app:SummaryText="oneui-core  •  oneui-design" />
+            app:summary="oneui-core  •  oneui-design" />
 
     </dev.oneuiproject.oneui.widget.RoundLinearLayout>
 
@@ -124,7 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:title="@string/translation"
-                app:SummaryText="Crowdin"
+                app:summary="Crowdin"
                 app:showTopDivider="false" />
 
         </dev.oneuiproject.oneui.widget.RoundLinearLayout>
