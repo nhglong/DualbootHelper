@@ -64,13 +64,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
-        Shell.getShell(shell -> {});
         setContentView(R.layout.activity_main);
         ToolbarLayout toolbarLayout = findViewById(R.id.home);
         mLoadingDialog = new ProgressDialog(this);
         mLoadingDialog.setProgressStyle(ProgressDialog.STYLE_CIRCLE);
         mLoadingDialog.setCancelable(false);
-        mLoadingDialog.show();
+        Shell.getShell(shell -> {
+            mLoadingDialog.show();
+        });
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Log.e("MainActivity", "Error executing shell commands", e);
             } finally {
-                mainHandler.post(() -> mLoadingDialog.dismiss());
+                mLoadingDialog.dismiss();
             }
         });
         setupCardViewWithConfirmation(R.id.reboot_a, R.string.reboot_a, "R.raw.switcha");
