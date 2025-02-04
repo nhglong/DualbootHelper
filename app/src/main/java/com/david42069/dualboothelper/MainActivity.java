@@ -135,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
         // Check root
         if (RootChecker.isRootAvailable()) {
             Shell.getShell(shell -> {});
-            deleteFilesIfExist();
             updateStatusCardView();
             executorService.execute(() -> {
                 try {
@@ -170,27 +169,6 @@ public class MainActivity extends AppCompatActivity {
     private String getPreferenceValue(String key, String fallback) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         return sharedPreferences.getString(key, fallback);
-    }
-
-    private void deleteFilesIfExist() {
-        // Define the file paths using the current context
-        String[] filePaths = {
-            getStatusFilePath(this),
-            getSlotAFilePath(this),
-            getSlotBFilePath(this)
-        };
-
-        for (String path : filePaths) {
-            File file = new File(path);
-            if (file.exists()) {
-                boolean deleted = file.delete();
-                if (deleted) {
-                    Log.d("MainActivity", "Deleted file: " + path);
-                } else {
-                    Log.e("MainActivity", "Failed to delete file: " + path);
-                }
-            }
-        }
     }
 
     private void cp(int resourceId, String fileName) {
