@@ -61,18 +61,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static class RootChecker {
-        private static boolean isRootAvailable = false;
-
         public static boolean isRootAvailable() {
-            return isRootAvailable;
-        }
-
-        public static void checkRoot() {
-            // Check for root access
-            isRootAvailable = checkForRoot();
-        }
-
-        private static boolean checkForRoot() {
             try {
                 // Execute the command to check for root access
                 String output = Shell.cmd("id -u").exec().getOut().get(0);
@@ -148,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
         mLoadingDialog.setCancelable(false);
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Handler mainHandler = new Handler(Looper.getMainLooper());
-        RootChecker.checkRoot();
             // Check root
                 if (RootChecker.isRootAvailable()) {
                     Shell.getShell(shell -> {});
