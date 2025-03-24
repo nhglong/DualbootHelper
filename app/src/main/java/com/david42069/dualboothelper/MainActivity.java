@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPreferences.registerOnSharedPreferenceChangeListener(preferenceChangeListener);
 
         // Update slot cards to reflect any changes
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         CardItemView slotCardView = findViewById(cardViewId);
         if (slotCardView != null) {
             String slotValue;
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
             boolean isCustomizeSlotNameOn = sharedPreferences.getBoolean("customizeslotname", false);
 
             if (isCustomizeSlotNameOn) {
@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Helper function to read preference value with fallback
     private String getPreferenceValue(String key, String fallback) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         return sharedPreferences.getString(key, fallback);
     }
 
