@@ -69,9 +69,7 @@ public class MainActivity extends AppCompatActivity {
         mLoadingDialog = new ProgressDialog(this);
         mLoadingDialog.setProgressStyle(ProgressDialog.STYLE_CIRCLE);
         mLoadingDialog.setCancelable(false);
-        Shell.getShell(shell -> {
-            mLoadingDialog.show();
-        });
+        Shell.getShell(shell -> {});
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Handler mainHandler = new Handler(Looper.getMainLooper());
